@@ -1,18 +1,16 @@
-import { googleClientID as devGoogleClientID, googleClientSecret as devGoogleClientSecret, mongoURI as devMongoURI, cookieKey as devCookieKey } from "./dev.js";
-import { googleClientID as prodGoogleClientID, googleClientSecret as prodGoogleClientSecret, mongoURI as prodMongoURI, cookieKey as prodCookieKey } from "./prod.js";
+// variable to hold the promise
+let config;
 
-let googleClientID, googleClientSecret, mongoURI, cookieKey;
-
+// using a promise based model to give a promise of the values (direct import and use will give undefined)
 if (process.env.NODE_ENV === "production") {
-    googleClientID = prodGoogleClientID;
-    googleClientSecret = prodGoogleClientSecret;
-    mongoURI = prodMongoURI;
-    cookieKey = prodCookieKey;
+    config = import("./prod.js");
 } else {
-    googleClientID = devGoogleClientID;
-    googleClientSecret = devGoogleClientSecret;
-    mongoURI = devMongoURI;
-    cookieKey = devCookieKey;
+    config = import("./dev.js");
 }
 
-export { googleClientID, googleClientSecret, mongoURI, cookieKey };
+// exports the promises
+// importing files must be able to handel the promises
+export const googleClientID = config.then(cfg => cfg.googleClientID);
+export const googleClientSecret = config.then(cfg => cfg.googleClientSecret);
+export const mongoURI = config.then(cfg => cfg.mongoURI);
+export const cookieKey = config.then(cfg => cfg.cookieKey);

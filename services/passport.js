@@ -16,13 +16,15 @@ passport.deserializeUser((id,done)=>{
     );
 });
 
-const configurePassport = () => {
+// to handel the promises it must be async
+const configurePassport = async () => {
     passport.use(
         new Strategy({
-            clientID: googleClientID,
-            clientSecret: googleClientSecret,
+            clientID: await googleClientID,         //await for promise
+            clientSecret: await googleClientSecret, //await for promise
             callbackURL: '/auth/google/callback'
         }, (accessToken, refreshToken, profile, done) => {
+            
             // console.log("\nAccess Token :: ", accessToken);
             // console.log("\nRefresh Token :: ", refreshToken);
             // console.log("\nProfile :: ", profile);
@@ -39,11 +41,10 @@ const configurePassport = () => {
                         .save() // saves it to db  
                         .then(user => done(null,user));
                 }
-            });
-
-            
+            });            
         })
     );
 };
 
+// since async-await was used it is not exporting a promise it is the final deal
 export default configurePassport;

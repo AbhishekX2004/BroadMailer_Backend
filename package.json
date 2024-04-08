@@ -9,11 +9,17 @@
   },
   "type": "module",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "author": "Abhishek Verma",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.19.2"
+    "cookie-session": "^2.1.0",
+    "express": "^4.19.2",
+    "mongodb": "^6.5.0",
+    "mongoose": "^8.3.0",
+    "passport": "^0.5.3",
+    "passport-google-oauth20": "^2.0.0"
   }
 }

@@ -20,9 +20,10 @@ passport.deserializeUser((id,done)=>{
 const configurePassport = async () => {
     passport.use(
         new Strategy({
-            clientID: await googleClientID,         //await for promise
-            clientSecret: await googleClientSecret, //await for promise
-            callbackURL: '/auth/google/callback'
+            clientID: await googleClientID,         // await for promise
+            clientSecret: await googleClientSecret, // await for promise
+            callbackURL: '/auth/google/callback',
+            proxy: true                             // give trust to browser
         }, (accessToken, refreshToken, profile, done) => {
             
             // console.log("\nAccess Token :: ", accessToken);

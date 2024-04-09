@@ -8,8 +8,6 @@ import { cookieKey } from "./config/keys.js";
 import { mongoURI } from "./config/keys.js";
 import passport from "passport";
 
-import cors from "cors";
-
 const app = express();
 const PORT = process.env.PORT || 8080;
 
@@ -21,7 +19,7 @@ const initialize = async () => {
             keys: [await cookieKey]   //secures the cookie [encrypt]
         })
     )
-    app.use(cors());
+
     app.use(passport.initialize());
     app.use(passport.session());
     

@@ -10,12 +10,16 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "server": "nodemon index.js",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Abhishek Verma",
   "license": "ISC",
   "dependencies": {
+    "concurrently": "^8.2.2",
     "cookie-session": "^2.1.0",
+    "cors": "^2.8.5",
     "express": "^4.19.2",
     "mongodb": "^6.5.0",
     "mongoose": "^8.3.0",

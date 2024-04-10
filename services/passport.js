@@ -24,25 +24,24 @@ const configurePassport = async () => {
             clientSecret: await googleClientSecret, // await for promise
             callbackURL: '/auth/google/callback',
             proxy: true                             // give trust to browser
-        }, (accessToken, refreshToken, profile, done) => {
+        }, 
+        async (accessToken, refreshToken, profile, done) => {
             
             // console.log("\nAccess Token :: ", accessToken);
             // console.log("\nRefresh Token :: ", refreshToken);
             // console.log("\nProfile :: ", profile);
 
-            User.findOne({
+            const exist = await User.findOne({
                 googleId: profile.id
-            }).then((exist) => {
-                if(exist){
-                    //
-                    done(null,exist);
-                } else {
-                    // held localy
-                    new User({ googleId: profile.id })
-                        .save() // saves it to db  
-                        .then(user => done(null,user));
-                }
-            });            
+            });
+            
+            if (exist) {
+                return done(null, exist);
+            }
+            // held localy
+            const user = await new User({ googleId: profile.id }).save() // saves it to db  
+            done(null, user);
+                    
         })
     );
 };

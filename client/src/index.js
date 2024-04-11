@@ -1,15 +1,32 @@
+import "materialize-css/dist/css/materialize.min.css"
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './components/App.js';
 import reportWebVitals from './reportWebVitals';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+import { thunk } from 'redux-thunk';
 
+// Provider
+// It knows how to read changes in store and tell React
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware } from "redux";
+
+// Reducers
+import reducers from './reducers';
+
+// Redux store
+const store = createStore(reducers, {}, applyMiddleware(thunk));
+
+// root
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
+root.render(
+	<React.StrictMode>
+		<Provider store={store}>
+			<App />
+		</Provider>
+	</React.StrictMode>
+);
 
 reportWebVitals();

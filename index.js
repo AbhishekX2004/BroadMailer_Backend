@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 import cookieSession from "cookie-session";
 import configurePassport from "./services/passport.js";
 import googleAuthRoutes from "./routes/authRoutes.js";
+import billingRoutes from "./routes/billingRoutes.js";
+import bodyParser from "body-parser";
 import { cookieKey } from "./config/keys.js";
 
 import { mongoURI } from "./config/keys.js";
@@ -20,6 +22,7 @@ const initialize = async () => {
         })
     )
 
+    app.use(bodyParser.json());
     app.use(passport.initialize());
     app.use(passport.session());
     
@@ -31,7 +34,10 @@ const initialize = async () => {
     
     // auth Routes
     googleAuthRoutes(app);
-    
+
+    // billing Routes
+    billingRoutes(app);
+
     app.listen(PORT,()=>{
         console.log(`App is listening on port:${PORT}`);
     });

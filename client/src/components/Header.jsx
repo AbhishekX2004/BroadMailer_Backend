@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import authReducer from "../reducers/authReducer";
+import Payments from "./Payments";
 
 function mapstateToProps(state){
     
@@ -21,13 +22,26 @@ function Header(props) {
     function renderContent() {
         switch (props.auth) {
             case null:
-                return "searching";
+                return (
+                    <ul className="right">
+                        Searching ... 
+                    </ul>
+                );
 
             case false:
-                return (<li><a href="/auth/google">Login With Google</a></li>);
+                return (
+                    <ul className="right">
+                        <li><a href="/auth/google">Login With Google</a></li>
+                    </ul>
+                );
 
             default:
-                return (<li><a href="/api/logout">Logout</a></li>);
+                return (
+                    <ul className="right">
+                        <li key="1"><Payments /></li>
+                        <li key="2"><a href="/api/logout">Logout</a></li>
+                    </ul>
+                );
         }
     }
 
@@ -40,14 +54,16 @@ function Header(props) {
                 >
                     BroadMailer
                 </Link>
-                <ul className="right">
-                    {/* <li>
-                        <a href="/auth/google">Login With Google</a>
-                    </li> */}
+                    {/*                     
+                    <ul className="right">
+                        <li>
+                            <a href="/auth/google">Login With Google</a>
+                        </li> 
+                    </ul>
+                    */}
                     {
                         renderContent()
                     }
-                </ul>
             </div>
         </nav>
     );

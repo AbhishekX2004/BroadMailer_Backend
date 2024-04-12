@@ -17,12 +17,14 @@
   "author": "Abhishek Verma",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.20.2",
     "concurrently": "^8.2.2",
     "cookie-session": "^2.1.0",
     "express": "^4.19.2",
     "mongodb": "^6.5.0",
     "mongoose": "^8.3.0",
     "passport": "^0.5.3",
-    "passport-google-oauth20": "^2.0.0"
+    "passport-google-oauth20": "^2.0.0",
+    "stripe": "^15.1.0"
   }
 }

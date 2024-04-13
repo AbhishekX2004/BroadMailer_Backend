@@ -3,7 +3,8 @@ const { Schema } = mongoose;
 
 // schema telling what is held
 const userSchema = new Schema({
-    googleId: String
+    googleId: String,   // type of field
+    credits: { type: Number, default: 0 }       // for other configuration assign an object
 });
 
 // tell mongoose about the model

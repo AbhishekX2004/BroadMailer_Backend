@@ -10,6 +10,8 @@ import { cookieKey } from "./config/keys.js";
 import { mongoURI } from "./config/keys.js";
 import passport from "passport";
 
+import path from "path";
+
 const app = express();
 const PORT = process.env.PORT || 8080;
 

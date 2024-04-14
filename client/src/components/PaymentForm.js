@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import {options, useStripe, useElements, CardNumberElement, CardExpiryElement, CardCvcElement } from '@stripe/react-stripe-js';
+import { options, useStripe, useElements, CardNumberElement, CardExpiryElement, CardCvcElement } from '@stripe/react-stripe-js';
 import axios from 'axios';
 import M from 'materialize-css';
+import { connect } from "react-redux";
+import { handleToken } from '../actions';
 
-const PaymentForm = () => {
+const PaymentForm = ({ handleToken }) => { // Destructure handleToken from props
+
     const stripe = useStripe();
     const elements = useElements();
     const [error, setError] = useState(null);
@@ -19,26 +22,42 @@ const PaymentForm = () => {
 
     const handlePayment = async () => {
         try {
-            const response = await axios.post('/api/stripe', {
-                amount: amount * 100,   // convert to paise
-                currency: 'inr',
-            });
-
-            // Uncomment to see the payment intent
-            // console.log(response.data.paymentIntent);
-            
-            // not needed
-            // const result = await stripe.confirmCardPayment(clientSecret, {
-            //     payment_method: {
-            //         card: elements.getElement(CardElement),
-            //     },
-            // });
-            
-            console.log('Payment succeeded!');
-        } catch (error) {
-            console.log(error);
-            throw new Error('Payment failed. Please try again later.');
+            if (amount <= 0 || !Number.isInteger(parseFloat(amount))) {
+                throw new Error();
+            } else {
+                const response = await axios.post('/api/stripe', {
+                    amount: amount * 100,   // convert to paise
+                    currency: 'inr',
+                });
+        
+                // Dispatch handleToken action with the token data
+                handleToken(response.data.user);
+        
+                // Uncomment to see the payment intent
+                // console.log(response.data.paymentIntent);
+                
+                // not needed
+                // const result = await stripe.confirmCardPayment(clientSecret, {
+                //     payment_method: {
+                //         card: elements.getElement(CardElement),
+                //     },
+                // });
+                
+                alert('Payment succeeded!');
+            }
+        } catch (err) {
+            let errorMessage;
+            if (amount <= 0) {
+                errorMessage = "Amount should be a positive number.";
+            } else if (!Number.isInteger(parseFloat(amount))) {
+                errorMessage = "Amount should be a whole number.";
+            } else {
+                errorMessage = 'Payment failed. Please try again later.';
+            }
+            console.log(errorMessage);
+            throw new Error(errorMessage);
         }
+        
     };
 
     const handleSubmit = async (event) => {
@@ -53,13 +72,13 @@ const PaymentForm = () => {
             await handlePayment();
             const modalInstance = M.Modal.getInstance(document.getElementById('payment-modal'));
             modalInstance.close();
-            setAmount(10); // Reset amount to default value
+            setAmount(10);                                  // Reset amount to default value
             elements.getElement(CardNumberElement).clear(); // Clear card number
             elements.getElement(CardExpiryElement).clear(); // Clear expiry
-            elements.getElement(CardCvcElement).clear(); // Clear cvc
-            // setCardNumberError(null); // Reset card number error
-            // setExpiryError(null); // Reset expiry error
-            // setCvcError(null); // Reset cvc error
+            elements.getElement(CardCvcElement).clear();    // Clear cvc
+            setCardNumberError(null);                       // Reset card number error
+            setExpiryError(null);                           // Reset expiry error
+            setCvcError(null);                              // Reset cvc error
         } catch (error) {
             setError(error.message);
         }
@@ -80,7 +99,7 @@ const PaymentForm = () => {
                                 type="number"
                                 value={amount}
                                 onChange={(e) => setAmount(e.target.value)}
-                                // min="0.5" // Minimum amount 0.5 Rs
+                                // min="1" // Minimum amount 1 Rs
                                 step="10" // Increment by 10 Rs
                             />
                         </label>
@@ -119,7 +138,8 @@ const PaymentForm = () => {
     );
 };
 
-export default PaymentForm;
+export default connect(null, { handleToken })(PaymentForm); // Connect handleToken action creator
+
 
 
 

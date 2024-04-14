@@ -1,17 +1,18 @@
 import stripe from 'stripe';
 import { stripeSecretKey } from '../config/keys.js';
+import reqLogin from '../middlewares/reqLogin.js';
 
 const billingRoutes = async (app) => {
     const stripeInstance = stripe(await stripeSecretKey);
     
-    app.post("/api/stripe", async (req, res) => {
+    app.post("/api/stripe", reqLogin, async (req, res) => {
         try {
             // Create a PaymentIntent
             const paymentIntent = await stripeInstance.paymentIntents.create({
                 amount: req.body.amount,
                 currency: req.body.currency,
                 automatic_payment_methods: {
-                    enabled: true,
+                    enabled: true,   
                 },
                 description: "Purchasing Survey Credits",
                 receipt_email: req.body.receipt_email,

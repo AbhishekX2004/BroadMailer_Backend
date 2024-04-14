@@ -10,7 +10,8 @@ export const fetchUser = () => {
 
 export const handleToken = (token) => {
     return async (dispatch) => {
-        const res = await axios.post("/api/stripe",token);
-        dispatch({type: FETCH_USER, payload: res.data});
+        // const res = await axios.post("/api/stripe",token);   // this is no longer needed since the newer stripe library is capable of 
+        // console.log(res.data.user);                          // returning the updated user model directly so the request to the route is no longer needed.
+        dispatch({type: FETCH_USER, payload: token}); // token is the user model, we are updating the redux store using the user model
     }
 }

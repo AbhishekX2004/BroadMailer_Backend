@@ -4,12 +4,17 @@ import cookieSession from "cookie-session";
 import configurePassport from "./services/passport.js";
 import googleAuthRoutes from "./routes/authRoutes.js";
 import billingRoutes from "./routes/billingRoutes.js";
+import surveyRoutes from "./routes/surveyRoutes.js";
 import bodyParser from "body-parser";
 import { cookieKey } from "./config/keys.js";
 
 import { mongoURI } from "./config/keys.js";
 import passport from "passport";
 
+// import the surveys schema
+import Survey from "./models/Survey.js";
+
+// to direct the paths in production 
 import path from "path";
 import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -41,6 +46,9 @@ const initialize = async () => {
 
     // billing Routes
     billingRoutes(app);
+
+    // survey Routes
+    surveyRoutes(app);
 
     // To run while in production
     // telling express to redirect unknown routes to react router

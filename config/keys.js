@@ -15,3 +15,5 @@ export const googleClientSecret = config.then(cfg => cfg.googleClientSecret);
 export const mongoURI = config.then(cfg => cfg.mongoURI);
 export const cookieKey = config.then(cfg => cfg.cookieKey);
 export const stripeSecretKey = config.then(cfg => cfg.stripeSecretKey);
+export const sendGridKey = config.then(cfg => cfg.sendGridKey);
+export const redirectDomain = config.then(cfg => cfg.redirectDomain);

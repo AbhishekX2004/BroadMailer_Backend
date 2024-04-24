@@ -47,11 +47,12 @@ function Header(props) {
     }
 
     return (
-        <nav style={{backgroundColor: "skyblue"}}>
+        <nav className="blue">
             <div className="nav-wrapper">
                 <Link 
                     to= { props.auth ? "/surveys" : "/" } 
                     className="left brand-logo"
+                    style={{marginLeft: '20px'}}
                 >
                     BroadMailer
                 </Link>

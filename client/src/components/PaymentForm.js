@@ -29,20 +29,20 @@ const PaymentForm = ({ handleToken }) => { // Destructure handleToken from props
                     amount: amount * 100,   // convert to paise
                     currency: 'inr',
                 });
-        
+
                 // Dispatch handleToken action with the token data
                 handleToken(response.data.user);
-        
+
                 // Uncomment to see the payment intent
                 // console.log(response.data.paymentIntent);
-                
+
                 // not needed
                 // const result = await stripe.confirmCardPayment(clientSecret, {
                 //     payment_method: {
                 //         card: elements.getElement(CardElement),
                 //     },
                 // });
-                
+
                 alert('Payment succeeded!');
             }
         } catch (err) {
@@ -57,7 +57,7 @@ const PaymentForm = ({ handleToken }) => { // Destructure handleToken from props
             console.log(errorMessage);
             throw new Error(errorMessage);
         }
-        
+
     };
 
     const handleSubmit = async (event) => {
@@ -85,56 +85,65 @@ const PaymentForm = ({ handleToken }) => { // Destructure handleToken from props
     };
 
     return (
-        <>
+        <div>
             <button data-target="payment-modal" className="btn modal-trigger">Add Credits</button>
             <div id="payment-modal" className="modal">
-                <h4 style={{ color: "black", textAlign: "center" }}>BroadMailer</h4>
-                <p style={{ color: "black", textAlign: "center" }}>Add credits to send surveys. 5 Rs for 5 survey.</p>
+                <h4 style={{ color: "black", textAlign: "center", height: '30px', margin: '15px 0 5px 0' }}>BroadMailer</h4>
+                <p style={{ color: "black", textAlign: "center", height: '30px', margin: '0 0 5px 0', lineHeight: '1.5' }}>Add credits to send surveys. 5 Rs for 5 survey.</p>
 
-                <div className="modal-content">
-                    <form onSubmit={handleSubmit}>
+                <div className="modal-content" style={{ padding: '4px' }}>
+                    <form onSubmit={handleSubmit} style={{ margin: '0 40px 0 40px' }}>
                         <label>
                             Amount to Pay (in rupees):
-                            <input
-                                type="number"
-                                value={amount}
-                                onChange={(e) => setAmount(e.target.value)}
-                                // min="1" // Minimum amount 1 Rs
-                                step="10" // Increment by 10 Rs
-                            />
                         </label>
+                        <input
+                            style={{ margin: '0' }}
+                            type="number"
+                            value={amount}
+                            onChange={(e) => setAmount(e.target.value)}
+                            // min="1" // Minimum amount 1 Rs
+                            step="10" // Increment by 10 Rs
+                        />
                         <label>
                             Card number
-                            <CardNumberElement
-                                options={options} // Add options if needed
-                                onChange={(e) => setCardNumberError(e.error ? e.error.message : null)}
-                            />
-                            {cardNumberError && <div style={{ color: "red" }}>{cardNumberError}</div>}
                         </label>
-                        <label>
-                            Expiration date
-                            <CardExpiryElement
-                                options={options} // Add options if needed
-                                onChange={(e) => setExpiryError(e.error ? e.error.message : null)}
-                            />
-                            {expiryError && <div style={{ color: "red" }}>{expiryError}</div>}
-                        </label>
-                        <label>
-                            CVV
-                            <CardCvcElement
-                                options={options} // Add options if needed
-                                onChange={(e) => setCvcError(e.error ? e.error.message : null)}
-                            />
-                            {cvcError && <div style={{ color: "red" }}>{cvcError}</div>}
-                        </label>
+                        <CardNumberElement
+                            options={options} // Add options if needed
+                            onChange={(e) => setCardNumberError(e.error ? e.error.message : null)}
+                        />
+                        {cardNumberError && <div style={{ color: "red" }}>{cardNumberError}</div>}
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <div style={{ flex: '0 0 calc(50% - 12px)' }}>
+                                <label style={{ lineHeight: '1.5' , whiteSpace: 'nowrap'}}>
+                                    Expiration Date
+                                </label>
+                                <CardExpiryElement
+                                    options={options} // Add options if needed
+                                    onChange={(e) => setExpiryError(e.error ? e.error.message : null)}
+                                />
+                                {expiryError && <div style={{ color: "red" }}>{expiryError}</div>}
+                            </div>
+                            <div style={{ flex: '0 0 calc(50% - 12px)', marginLeft: '12px' }}>
+                                <label style={{ lineHeight: '1.5' }}>
+                                    CVV
+                                </label>
+                                <CardCvcElement
+                                    options={options} // Add options if needed
+                                    onChange={(e) => setCvcError(e.error ? e.error.message : null)}
+                                />
+                                {cvcError && <div style={{ color: "red" }}>{cvcError}</div>}
+                            </div>
+                        </div>
+
                         {error && <div style={{ color: "red" }}>{error}</div>}
-                        <button type="submit" className="btn" disabled={!stripe}>
+                        <button type="submit" className="btn" style={{ display: 'block', margin: '5px auto' }} disabled={!stripe}>
                             Pay
                         </button>
+
                     </form>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

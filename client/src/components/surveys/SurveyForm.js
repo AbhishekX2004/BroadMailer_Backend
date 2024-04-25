@@ -6,16 +6,12 @@ import validateEmails from "../../utils/validateEmails";
 // Field helps to render any time of traditional html form elements
 import { reduxForm, Field } from 'redux-form';
 
-const FIELDS = [
-    { label: "Survey Title", name: "title" },
-    { label: "Subject of the Survey Mail", name: "subject" },
-    { label: "Body of the Email", name: "body" },
-    { label: "Recipients List", name: "emails" }
-];
+//importing the fields
+import formFields from "./formFields";
 
 class SurveyForm extends Component{
     renderFields() {
-        return FIELDS.map(({ name, label }, i) => (
+        return formFields.map(({ name, label }, i) => (
             <Field key={i} type="text" name={name} label={label} component={SurveyField} />
         ));
     }
@@ -34,7 +30,7 @@ class SurveyForm extends Component{
                     <button type="submit">Submit</button>
                 </form> */}
 
-                <form onSubmit={this.props.handleSubmit(values => console.log(values))}>
+                <form onSubmit={this.props.handleSubmit(this.props.onSurveySubmit)}>
 
                     {this.renderFields()}
                     
@@ -59,10 +55,10 @@ function validate(values) {     // values is the object containing all the value
     const errors = {};  // error object
     
     //check for invalid mails { kept on top else it will overwirte the empty field error }
-    errors.emails = validateEmails(values.emails || "");
+    errors.emails = validateEmails(values.recipients || "");
     
     // check if the field is not empty
-    FIELDS.forEach(({ name, label }) => {
+    formFields.forEach(({ name, label }) => {
         if (!values[name]) {
             errors[name] = `${label} must be provided.`;
         }
@@ -75,6 +71,7 @@ function validate(values) {     // values is the object containing all the value
 // reduxForm is vary similar to connect function of redux with the difference that 
 // instead of taking multiple parameters it takes less parameter that is the form
 export default reduxForm({
-    validate: validate,     // the fuction that runs automatically when a user tries to submit the form
-    form: 'surveyForm'
+    validate: validate,         // the fuction that runs automatically when a user tries to submit the form
+    form: 'surveyForm',         // namespace for all values in the redux store
+    destroyOnUnmount: false     // this dosent destroy the values in the form even if user goes away from the page
 })(SurveyForm);

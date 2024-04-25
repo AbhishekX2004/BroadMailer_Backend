@@ -10,7 +10,7 @@ const surveyRoutes =  (app) => {
     // route for those who click on the survey links
     app.get("/api/surveys/voted", (req, res) => {
         res.send(`
-            <h1 style="text-align: center;">Thanks for voting</h1>
+            <h1 style="text-align: center;">Thanks for Valuable Response !!</h1>
         `);
     });
 

@@ -15,3 +15,15 @@ export const handleToken = (token) => {
         dispatch({type: FETCH_USER, payload: token}); // token is the user model, we are updating the redux store using the user model
     }
 }
+
+export const submitSurvey = (values, navigate) => {
+    return async (dispatch) => {
+        // api request to backend
+        const res = await axios.post('/api/surveys',values);
+        // navigate to dashboard
+        alert("Survey Sent Successfully!!");
+        navigate("/surveys");
+        // dispatch to update the header automatically
+        dispatch({type: FETCH_USER, payload: res.data});
+    }
+}

@@ -55,7 +55,7 @@ function validate(values) {     // values is the object containing all the value
     const errors = {};  // error object
     
     //check for invalid mails { kept on top else it will overwirte the empty field error }
-    errors.emails = validateEmails(values.recipients || "");
+    errors.recipients = validateEmails(values.recipients || "");
     
     // check if the field is not empty
     formFields.forEach(({ name, label }) => {

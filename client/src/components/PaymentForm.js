@@ -60,6 +60,9 @@ const PaymentForm = ({ handleToken }) => { // Destructure handleToken from props
 
     };
 
+
+    // TODO :: Form submits without the card details
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 

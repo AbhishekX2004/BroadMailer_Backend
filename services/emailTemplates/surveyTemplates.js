@@ -48,8 +48,8 @@ const template = (survey) => {
                     <h4 class="survey-title">${survey.title}</h4>
                     <p class="survey-body">${survey.body}</p>
                     <div class="button-container">
-                        <a class="button" href="${domain}/api/surveys/voted">Yes</a>
-                        <a class="button" href="${domain}/api/surveys/voted">No</a>
+                        <a class="button" href="${domain}/api/surveys/${survey.id}/voted/yes">Yes</a>
+                        <a class="button" href="${domain}/api/surveys/${survey.id}/voted/no">No</a>
                     </div>
                 </div>
             </body>

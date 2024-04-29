@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Link } from 'react-router-dom';
 import M from 'materialize-css';
+import SurveyList from "./surveys/SurveyList";
 
 function Dashboard(props) {
     useEffect(() => {
@@ -12,6 +13,10 @@ function Dashboard(props) {
     return (
         <div>
             Dashboard
+            
+            <SurveyList />
+
+
             <div className="fixed-action-btn">
                 <Link 
                     className="btn-floating btn-large waves-effect waves-light teal tooltipped"

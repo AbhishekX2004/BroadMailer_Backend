@@ -107,6 +107,17 @@ const surveyRoutes = (app) => {
  
         res.send({});
     });
+
+    // route for dashboard to fetch surveys
+    app.get('/api/surveys', reqLogin, async (req,res) => {
+        
+        // query to fetch the surveys of current user
+        const surveys = await Survey.find({
+            _user: req.user.id
+        }).select({ recipients: false});    // tells to not send the list of recipients
+
+        res.send(surveys);
+    });
 }
 
 export default surveyRoutes;

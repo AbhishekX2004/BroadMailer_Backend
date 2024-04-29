@@ -7,10 +7,14 @@ import Mailer from "../services/Mailer.js";
 import { Path } from "path-parser";
 import { URL } from 'url';
 
+// Note
+// :surveyId and :choice are wildcards
+// express will try to match them with incoming requests.
+
 const surveyRoutes = (app) => {
 
     // route for those who click on the survey links
-    app.get("/api/surveys/voted", (req, res) => {
+    app.get("/api/surveys/:surveyId/voted/:choice", (req, res) => {
         res.send(`
             <h1 style="text-align: center;">Thanks for Valuable Response !!</h1>
         `);
@@ -80,11 +84,26 @@ const surveyRoutes = (app) => {
                 return index === self.findIndex(e =>
                     e.email === event.email && e.surveyId === event.surveyId
                 );
+            })
+
+            // saving to the DataBase
+            // this is a async code but we dont put it in async handler
+            // since once we get data sendGrid dosent care it just needs confirmation that we get the data
+            .forEach(({ surveyId, email, choice }) => {
+                Survey.updateOne({          // update one record
+                    _id: surveyId,
+                    recipients: {
+                        $elemMatch: { email: email, responded: false}   // searches for a recipient with specific matil and has not responded yet
+                    }
+                }, {
+                    $inc: { [choice]: 1},                       // increase the value of choice by one
+                    $set: { 'recipients.$.responded': true},    // sets responded true  { $ is the value of recipient from the elemMatch line above }
+                    lastResponded: new Date()                   // updated the last responded with current date
+                }).exec();      // exec executes the query
             });
 
         // uncomment to see final parsed elements
         // console.log(events);
-
  
         res.send({});
     });

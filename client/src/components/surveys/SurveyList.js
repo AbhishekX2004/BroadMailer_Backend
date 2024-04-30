@@ -8,7 +8,10 @@ const SurveyList = ({ fetchSurveys, surveys }) => {
     }, [fetchSurveys]);
 
     function renderSurveys() {
-        return surveys.reverse().map(survey => {
+        // Make a copy of surveys array and then reverse it
+        const reversedSurveys = [...surveys].reverse();
+    
+        return reversedSurveys.map(survey => {
             return (
                 <div className="card blue-grey darken-1" key={survey._id}>
                     <div className="card-content white-text">
@@ -31,6 +34,7 @@ const SurveyList = ({ fetchSurveys, surveys }) => {
             );
         });
     };
+    
 
     return (
         <div>

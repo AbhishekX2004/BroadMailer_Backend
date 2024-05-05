@@ -1,0 +1,11 @@
+.myGradientText {
+    font-weight: bolder;
+    color: #21aaff;
+    background-image: -webkit-linear-gradient(0deg, #21aaff 0%, #600af5 26%, #d902f5 91%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    text-fill-color: transparent;
+    -webkit-text-fill-color: transparent;
+
+
+}

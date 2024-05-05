@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import authReducer from "../reducers/authReducer";
 import Payments from "./Payments";
 
-function mapstateToProps(state){
+function mapStateToProps(state){
     
     // uncomment to see the auth fetch process 
     // {null -> false} or {null -> user}
@@ -71,4 +71,4 @@ function Header(props) {
     );
 }
 
-export default connect(mapstateToProps)(Header);
+export default connect(mapStateToProps)(Header);

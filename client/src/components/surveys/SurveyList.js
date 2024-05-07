@@ -13,20 +13,24 @@ const SurveyList = ({ fetchSurveys, surveys }) => {
     
         return reversedSurveys.map(survey => {
             return (
-                <div className="card blue-grey darken-1" key={survey._id}>
+                <div className="card blue-grey darken-1" key={survey._id} style={{borderRadius: '25px'}}>
                     <div className="card-content white-text">
-                        <span className="card-title">{survey.title}</span>
+                        <span className="card-title" style={{fontWeight: 'bolder'}}><i>{survey.title}</i></span>
                         <p>
-                            Subject : {survey.subject}
+                            <b>Subject:</b> {survey.subject}
                         </p>
                         <p>
-                            {survey.body}
+                            <b>Body:</b> {survey.body}
+                        </p>
+                        <br />
+                        <p className='left'>
+                            <b>Last Response on:</b> {new Date(survey.lastResponded).toLocaleDateString()}
                         </p>
                         <p className='right'>
-                            Sent On: {new Date(survey.dateSent).toLocaleDateString()}
+                            <b>Sent On:</b> {new Date(survey.dateSent).toLocaleDateString()}
                         </p>
                     </div>
-                    <div className="card-action">
+                    <div className="card-action center" style={{fontSize:'medium'}}>
                         <a href='#'>Yes: {survey.yes}</a>
                         <a href='#'>No: {survey.no}</a>
                     </div>

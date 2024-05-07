@@ -57,7 +57,6 @@ const PaymentForm = ({ handleToken }) => { // Destructure handleToken from props
             console.log(errorMessage);
             throw new Error(errorMessage);
         }
-
     };
 
 
@@ -140,7 +139,7 @@ const PaymentForm = ({ handleToken }) => { // Destructure handleToken from props
 
                         {error && <div style={{ color: "red" }}>{error}</div>}
                         <button type="submit" className="btn" style={{ display: 'block', margin: '5px auto' }} disabled={!stripe}>
-                            Pay
+                            Pay 
                         </button>
 
                     </form>

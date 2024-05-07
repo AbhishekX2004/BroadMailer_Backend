@@ -1,11 +1,24 @@
+@keyframes textShine {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
 .myGradientText {
     font-weight: bolder;
-    color: #21aaff;
-    background-image: -webkit-linear-gradient(0deg, #21aaff 0%, #600af5 26%, #d902f5 91%);
-    background-clip: text;
+    background: linear-gradient(
+        to right,
+        #7953cd 20%,
+        #00affa 30%,
+        #0190cd 70%,
+        #764ada 80%
+    );
     -webkit-background-clip: text;
-    text-fill-color: transparent;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
-
-
+    background-size: 500% auto;
+    animation: textShine 5s ease-in-out infinite reverse;
 }

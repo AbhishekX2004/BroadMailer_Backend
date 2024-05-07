@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import { Link } from "react-router-dom";
 import SurveyField from "./SurveyField";
 import validateEmails from "../../utils/validateEmails";
+import validateLanguage from "../../utils/validateLanguage";
 
 // Field helps to render any time of traditional html form elements
 import { reduxForm, Field } from 'redux-form';
@@ -52,15 +53,22 @@ class SurveyForm extends Component{
 
 // validate function
 function validate(values) {     // values is the object containing all the values coming from the form
+    
+    // uncomment to see form values
+    // console.log(values);
+    
     const errors = {};  // error object
     
-    //check for invalid mails { kept on top else it will overwirte the empty field error }
+    // check for invalid mails { kept on top else it will overwirte the empty field error }
     errors.recipients = validateEmails(values.recipients || "");
-    
-    // check if the field is not empty
+
     formFields.forEach(({ name, label }) => {
         if (!values[name]) {
             errors[name] = `${label} must be provided.`;
+        } else if (label !== "recipients") {
+            if (validateLanguage(values[name])) {
+                errors[name] = `${label} contains offensive/threatening language.`;
+            }
         }
     });
 

@@ -18,6 +18,7 @@ function Footer() {
                         <h5 className="white-text">Navigate</h5>
                         <ul>
                             <li><Link className="grey-text text-lighten-3" to="/">Home</Link></li>
+                            <li><Link className="grey-text text-lighten-3" to="/surveys">Dashboard</Link></li>
                         </ul>
                     </div>
                 </div>

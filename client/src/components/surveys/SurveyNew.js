@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import { connect } from 'react-redux';
 import SurveyForm from "./SurveyForm";
 import SurveyFormReview from "./SurveyFormReview";
@@ -9,28 +9,47 @@ function mapStateToProps(state) {
     return { auth: state.auth };
 }
 
-class SurveyNew extends Component{
-    state = { showFormReview: false};
+class SurveyNew extends Component {
+    state = { showFormReview: false };
 
-    renderContent(){
+    renderContent() {
         if (!this.props.auth) {
-            return <h4>Please log in to view this page.</h4>;
+            return <h4 className="center">Please log in to view this page.</h4>;
         }
-        if(this.state.showFormReview){
-            return <SurveyFormReview onCancel = {() => {
+        if (this.props.auth.credits === 0) {
+            return (
+                <div className="center">
+                    <h4> You Dont have enough credits to send a Survey</h4>
+                    <p> <b>Hint:</b> Add some credits first. </p>
+                </div>
+            )
+        }
+        if (this.state.showFormReview) {
+            return <SurveyFormReview onCancel={() => {
                 this.setState({ showFormReview: false })
-            }}/>;
+            }} />;
         }
-        return <SurveyForm onSurveySubmit = {() => {
-            this.setState({showFormReview: true})
+        return <SurveyForm onSurveySubmit={() => {
+            this.setState({ showFormReview: true })
         }} />;
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <div>
-                {this.renderContent()}
+                <div className="center">
+                    <span style={{ color: 'red' }}>
+                        <i className="material-icons" style={{ paddingTop: '5px', verticalAlign: 'middle' }}>warning</i>
+                        <b>Warning:</b>
+                    </span>
+                    The profanity filter is always watching for threats and abusive/offensive language.
+                </div>
+
+                <div>
+                    {this.renderContent()}
+                </div>
             </div>
+
         )
     }
 }

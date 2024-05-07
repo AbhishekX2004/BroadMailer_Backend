@@ -36,10 +36,9 @@ function Dashboard(props) {
 
     if(!props.auth){
         return(
-            <h4>Please log in to view this page.</h4>
+            <h4 className="center">Please log in to view this page.</h4>
         )
     }
-
     return (
         <div>
             <h4>{greeting()} <span className="myGradientText">{props.auth.name}</span> !!</h4>

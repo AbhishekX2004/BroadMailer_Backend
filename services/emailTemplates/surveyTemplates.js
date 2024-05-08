@@ -32,12 +32,35 @@ const template = (survey) => {
                         display: inline-block;
                         padding: 10px 20px;
                         background-color: #007bff;
-                        color: wheat;
+                        color: white;
                         text-decoration: none;
                         border-radius: 5px;
                     }
                     .button:hover {
                         background-color: #0056b3;
+                    }
+                    @keyframes textShine {
+                        0% {
+                            background-position: 0% 50%;
+                        }
+                    
+                        100% {
+                            background-position: 100% 50%;
+                        }
+                    }
+                    
+                    .myGradientText {
+                        font-weight: bolder;
+                        background: linear-gradient(to right,
+                                #7953cd 20%,
+                                #00affa 30%,
+                                #0190cd 70%,
+                                #764ada 80%);
+                        -webkit-background-clip: text;
+                        background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                        background-size: 500% auto;
+                        animation: textShine 5s ease-in-out infinite reverse;
                     }
                 </style>
             </head>
@@ -52,6 +75,15 @@ const template = (survey) => {
                         <a class="button" href="${domain}/api/surveys/${survey.id}/voted/no">No</a>
                     </div>
                 </div>
+                <p>
+                    Want to send similar surveys to your customer? 
+                    Come join us at <span class = "myGradientText"><a href = "${domain}">BroadMailer</a></span> !!
+                </p>
+                <p>
+                    Disclaimer : This is a computer generated mail, the sending ID and our service is not liable for any content in the mail.
+                    In case of any issues please reply to the mail with your contact credentials and the issue.
+                    We will try to get to you as soon as possible.
+                </p>
             </body>
         </html>`
     );

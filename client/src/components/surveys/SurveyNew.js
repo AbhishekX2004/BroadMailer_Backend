@@ -14,11 +14,11 @@ class SurveyNew extends Component {
 
     renderContent() {
         if (!this.props.auth) {
-            return <h4 className="center">Please log in to view this page.</h4>;
+            return <h4 className="center customColor1">Please log in to view this page.</h4>;
         }
         if (this.props.auth.credits === 0) {
             return (
-                <div className="center">
+                <div className="center customColor1">
                     <h4> You Dont have enough credits to send a Survey</h4>
                     <p> <b>Hint:</b> Add some credits first. </p>
                 </div>
@@ -40,9 +40,9 @@ class SurveyNew extends Component {
                 <div className="center">
                     <span style={{ color: 'red' }}>
                         <i className="material-icons" style={{ paddingTop: '5px', verticalAlign: 'middle' }}>warning</i>
-                        <b>Warning:</b>
+                        <b>Warning: </b>
                     </span>
-                    The profanity filter is always watching for threats and abusive/offensive language.
+                    <span className="customColor2">The profanity filter is always watching for threats and abusive/offensive language.</span>
                 </div>
 
                 <div>

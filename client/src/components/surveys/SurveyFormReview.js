@@ -13,7 +13,7 @@ const SurveyFormReview = ({ onCancel, formValues, submitSurvey }) => {    // des
         return formFields.map(({ name, label }, i) => (
             <div key={i}>
                 <label style={{fontSize:'16px'}}>{label}</label>
-                <div style={{fontSize:'14px'}}>
+                <div style={{fontSize:'14px'}} className='customColor2'>
                     {formValues[name]}
                 </div>
             </div>
@@ -22,7 +22,7 @@ const SurveyFormReview = ({ onCancel, formValues, submitSurvey }) => {    // des
     
     return (
         <div>
-            <h4>
+            <h4 className='customColor2'>
                 Please review the Details
             </h4>
             <div style={{margin:'30px 0'}}>

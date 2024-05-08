@@ -4,7 +4,7 @@ function surveyField({ input, label, meta:{ error, touched } }) {   // destructu
     return (
         <div>
             <label>{label}</label>
-            <input {...input} style={{marginBottom: "5px"}} />
+            <input {...input} className = "customColor2" style={{marginBottom: "5px"}} />
             <div className="red-text" style={{marginBottom: "5px"}}>
                 {
                     // meta.error  // this is the error sent by redux form and will be displayed by default

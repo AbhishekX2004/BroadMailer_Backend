@@ -36,6 +36,7 @@ function validateLanguage(content) {
         "terrorist",
         "suicide",
         "threatening",
+        "porn",
         "harassment",
         "bully",
         "rape",

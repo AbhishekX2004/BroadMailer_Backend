@@ -2,10 +2,10 @@ import React from "react";
 
 function Landing(params) {
     return (
-        <div style={{textAlign:"center"}}>
-            <h5>
+        <div className="center customColor2">
+            <h4 className="center ">
                 Collect feedback from your users!!
-            </h5>
+            </h4>
         </div>
     );
 }

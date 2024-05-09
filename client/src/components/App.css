@@ -22,7 +22,7 @@
     animation: textShine 5s ease-in-out infinite reverse;
 }
 
-html {
+html{
     background:
             radial-gradient(black 15%, transparent 16%) 0 0,
             radial-gradient(black 15%, transparent 16%) 8px 8px,
@@ -38,4 +38,37 @@ html {
 
 .customColor2{
     color: gainsboro;
+}
+
+.sidenav {
+    background:
+            radial-gradient(black 15%, transparent 16%) 0 0,
+            radial-gradient(black 15%, transparent 16%) 8px 8px,
+            radial-gradient(rgba(255, 255, 255, .1) 15%, transparent 20%) 0 1px,
+            radial-gradient(rgba(255, 255, 255, .1) 15%, transparent 20%) 8px 9px;
+        background-color: #282828;
+        background-size: 16px 16px;
+    color: white;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+
+.sidenav h5{
+    justify-content: center;
+    text-align: center;
+}
+
+.sidenav li{
+    padding-left: 15px;
+}
+
+.sidenav li:nth-child(5) {
+    text-align: left;
+}
+
+.sidenav li a {
+    padding-left: 52px;
+    color: white;
 }

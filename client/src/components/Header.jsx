@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import M from 'materialize-css';
 import authReducer from "../reducers/authReducer";
 import Payments from "./Payments";
 
@@ -19,6 +20,12 @@ function Header(props) {
     // {null -> false} or {null -> user}
     // console.log(props);
 
+    useEffect(() => {
+        // Initialize sidenav when the component mounts
+        var elems = document.querySelectorAll('.sidenav');
+        var instances = M.Sidenav.init(elems);
+    }, []);
+
     function renderContent() {
         switch (props.auth) {
             case null:
@@ -35,13 +42,23 @@ function Header(props) {
                     </ul>
                 );
 
-            default:
+            default:    
                 return (
-                    <ul className="right">
-                        <li key="1"><Payments /></li>
-                        <li key="2" style={{margin: '0 10px'}}>Credits : {props.auth.credits}</li>
-                        <li key="3"><a href="/api/logout">Logout</a></li>
-                    </ul>
+                    <div>
+                        <a href="#" data-target="mobileView" className="sidenav-trigger"><i class="material-icons">menu</i></a>
+                        <ul className="right hide-on-med-and-down">
+                            <li key="1"><Payments /></li>
+                            <li key="2" style={{margin: '0 10px'}}>Credits : {props.auth.credits}</li>
+                            <li key="3"><a href="/api/logout">Logout</a></li>
+                        </ul>
+
+                        <ul className="sidenav" id="mobileView">
+                            <h5 className="myGradientText">BroadMailer</h5>
+                            <li key="2" style={{margin: '0 10px'}}>Credits : {props.auth.credits}</li>
+                            <li key="1"><Payments /></li>
+                            <li key="3"><a href="/api/logout">Logout</a></li>
+                        </ul>
+                    </div>
                 );
         }
     }
@@ -51,7 +68,7 @@ function Header(props) {
             <div className="nav-wrapper">
                 <Link 
                     to= { props.auth ? "/surveys" : "/" } 
-                    className="left brand-logo"
+                    className="brand-logo"
                     style={{marginLeft: '20px'}}
                 >
                     BroadMailer

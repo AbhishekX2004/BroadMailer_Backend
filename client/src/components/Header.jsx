@@ -21,10 +21,13 @@ function Header(props) {
     // console.log(props);
 
     useEffect(() => {
-        // Initialize sidenav when the component mounts
-        var elems = document.querySelectorAll('.sidenav');
-        var instances = M.Sidenav.init(elems);
+        // Initialize sidenav when the DOM content is fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.sidenav');
+            var instances = M.Sidenav.init(elems);
+        });
     }, []);
+    
 
     function renderContent() {
         switch (props.auth) {

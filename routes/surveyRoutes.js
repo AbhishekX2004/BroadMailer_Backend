@@ -7,6 +7,11 @@ import Mailer from "../services/Mailer.js";
 import { Path } from "path-parser";
 import { URL } from 'url';
 
+// to direct the paths in production 
+import path from "path";
+import { fileURLToPath } from "url";
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
 // Note
 // :surveyId and :choice are wildcards
 // express will try to match them with incoming requests.
@@ -15,9 +20,12 @@ const surveyRoutes = (app) => {
 
     // route for those who click on the survey links
     app.get("/api/surveys/:surveyId/voted/:choice", (req, res) => {
-        res.send(`
-            <h1 style="text-align: center;">Thanks for Valuable Response !!</h1>
-        `);
+        // res.send(`
+        //     <h1 style="text-align: center;">Thanks for your Valuable Response !!</h1>
+        // `);
+        
+        // gets the response file from the public in client directly
+        res.sendFile(path.resolve(__dirname,'../client/public/surveyResponse.html'));
     });
 
     app.post("/api/surveys", reqLogin, reqCredits, async (req, res) => {

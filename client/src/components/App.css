@@ -49,7 +49,7 @@ html{
         background-color: #282828;
         background-size: 16px 16px;
     color: white;
-    width: 200px;
+    width: 225px;
     display: flex;
     flex-direction: column;
     align-items: left;
@@ -64,11 +64,17 @@ html{
     padding-left: 15px;
 }
 
-.sidenav li:nth-child(5) {
-    text-align: left;
+.sidenav li a {
+    color: white;
+    text-align: center;
 }
 
-.sidenav li a {
-    padding-left: 52px;
-    color: white;
+hr {
+    margin: 10px 0;
+}
+
+.surveyCardResponses{
+    justify-content: center;
+    text-align: center;
+    align-content: center;
 }

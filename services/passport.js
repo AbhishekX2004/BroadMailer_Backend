@@ -41,7 +41,6 @@ const configurePassport = async () => {
             // held localy
             const user = await new User({ googleId: profile.id, name: profile.displayName, email: profile._json.email}).save() // saves it to db  
             done(null, user);
-                    
         })
     );
 };

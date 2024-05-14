@@ -88,7 +88,10 @@ const PaymentForm = ({ handleToken }) => { // Destructure handleToken from props
 
     return (
         <div>
-            <button data-target="payment-modal" className="btn modal-trigger">Add Credits</button>
+            {/* 
+                // since a common button was added in the header for all screen sizes this button is no longer needed.
+                <button data-target="payment-modal" className="btn modal-trigger">Add Credits</button> 
+            */}
             <div id="payment-modal" className="modal">
                 <h4 style={{ color: "black", textAlign: "center", height: '30px', margin: '15px 0 5px 0' }}>BroadMailer</h4>
                 <p style={{ color: "black", textAlign: "center", height: '30px', margin: '0 0 5px 0', lineHeight: '1.5' }}>Add credits to send surveys. 5 Rs for 5 survey.</p>
@@ -150,11 +153,6 @@ const PaymentForm = ({ handleToken }) => { // Destructure handleToken from props
 };
 
 export default connect(null, { handleToken })(PaymentForm); // Connect handleToken action creator
-
-
-
-
-
 
 
 

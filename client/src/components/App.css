@@ -58,6 +58,9 @@ html{
 .sidenav h5{
     justify-content: center;
     text-align: center;
+    a{
+       font-size: 30px; 
+    }
 }
 
 .sidenav li{
@@ -66,7 +69,6 @@ html{
 
 .sidenav li a {
     color: white;
-    text-align: center;
 }
 
 hr {

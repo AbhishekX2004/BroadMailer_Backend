@@ -129,9 +129,21 @@ const surveyRoutes = (app) => {
 
     // route to delete the selected survey
     app.delete('/api/surveys/delete', reqLogin, async (req,res) => {
-        const surveyId = req.query.surveyId;
-        console.log(surveyId);
-    })
+
+        // uncomment to see the incoming survey id
+        // console.log(req.query.surveyId);
+        
+        try{
+            await Survey.deleteOne({
+                _id: req.query.surveyId
+            });
+            res.json({ message: "Survey deleted successfully" });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: "Internal server error" });
+        }
+        
+    });
 }
 
 export default surveyRoutes;

@@ -1,19 +1,29 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { fetchSurveys, delSurveys } from '../../actions';
 
-const SurveyList = ({ fetchSurveys, surveys }) => {
+const SurveyList = ({ fetchSurveys, delSurveys, surveys }) => {
+    const [deleteMessage, setDeleteMessage] = useState(null);
+
     useEffect(() => {
         fetchSurveys();
     }, [fetchSurveys]);
+
+    const handleDelete = async (surveyId) => {
+        try {
+            await delSurveys(surveyId);
+            setDeleteMessage("Survey deleted successfully!!");
+            // Fetch updated list of surveys after deletion
+            fetchSurveys();
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     function renderSurveys() {
         // Make a copy of surveys array and then reverse it
         const reversedSurveys = [...surveys].reverse();
         
-        // uncommet to see the surveys
-        // console.log(reversedSurveys);
-    
         return reversedSurveys.map(survey => {
             return (
                 <div className="card blue-grey darken-1" key={survey._id} style={{borderRadius: '25px'}}>
@@ -40,18 +50,18 @@ const SurveyList = ({ fetchSurveys, surveys }) => {
                         <a href='#'>No: {survey.no}</a>
 
                         {/* button to delete the survey */}
-                        <button onClick={() => delSurveys(survey._id)}>
-                            <i className="material-icons right red-text darken-2">delete</i>
+                        <button onClick={() => handleDelete(survey._id)}>
+                            <i className="material-icons  red-text darken-2">delete</i>
                         </button>
                     </div>
                 </div>
             );
         });
     };
-    
 
     return (
         <div>
+            {deleteMessage && <div>{deleteMessage}</div>}
             {renderSurveys()}
         </div>
     );

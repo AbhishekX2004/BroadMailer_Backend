@@ -9,7 +9,7 @@ function Footer() {
                     <div className="col l6 s12">
                         <h5 className="white-text"  style={{fontWeight:'bold'}}>BroadMailer</h5>
                         <p className="grey-text text-lighten-4">
-                            Send mails to anyone, anywhere!!
+                            Send Surveys and collect Anonymous Feedbacks
                             Using our Credit based Bulk mailer.
 
                         </p>

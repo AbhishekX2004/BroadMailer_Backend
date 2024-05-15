@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { fetchSurveys } from '../../actions';
+import { fetchSurveys, delSurveys } from '../../actions';
 
 const SurveyList = ({ fetchSurveys, surveys }) => {
     useEffect(() => {
@@ -10,6 +10,9 @@ const SurveyList = ({ fetchSurveys, surveys }) => {
     function renderSurveys() {
         // Make a copy of surveys array and then reverse it
         const reversedSurveys = [...surveys].reverse();
+        
+        // uncommet to see the surveys
+        // console.log(reversedSurveys);
     
         return reversedSurveys.map(survey => {
             return (
@@ -35,6 +38,11 @@ const SurveyList = ({ fetchSurveys, surveys }) => {
                     <div className="card-action center surveyCardResponses" style={{fontSize:'medium'}}>
                         <a href='#'>Yes: {survey.yes}</a>
                         <a href='#'>No: {survey.no}</a>
+
+                        {/* button to delete the survey */}
+                        <button onClick={() => delSurveys(survey._id)}>
+                            <i className="material-icons right red-text darken-2">delete</i>
+                        </button>
                     </div>
                 </div>
             );
@@ -53,4 +61,4 @@ const mapStateToProps = ({ surveys }) => {
     return { surveys: surveys };
 };
 
-export default connect(mapStateToProps, { fetchSurveys })(SurveyList);
+export default connect(mapStateToProps, { fetchSurveys, delSurveys })(SurveyList);

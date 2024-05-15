@@ -126,6 +126,12 @@ const surveyRoutes = (app) => {
 
         res.send(surveys);
     });
+
+    // route to delete the selected survey
+    app.delete('/api/surveys/delete', reqLogin, async (req,res) => {
+        const surveyId = req.query.surveyId;
+        console.log(surveyId);
+    })
 }
 
 export default surveyRoutes;

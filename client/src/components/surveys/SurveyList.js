@@ -3,21 +3,18 @@ import { connect } from 'react-redux';
 import { fetchSurveys, delSurveys } from '../../actions';
 
 const SurveyList = ({ fetchSurveys, delSurveys, surveys }) => {
-    const [deleteMessage, setDeleteMessage] = useState(null);
 
     useEffect(() => {
         fetchSurveys();
     }, [fetchSurveys]);
 
-    const handleDelete = async (surveyId) => {
-        try {
-            await delSurveys(surveyId);
-            setDeleteMessage("Survey deleted successfully!!");
-            // Fetch updated list of surveys after deletion
-            fetchSurveys();
-        } catch (error) {
-            console.error(error);
-        }
+    async function handleDelete(surveyId) {
+        let message = await delSurveys(surveyId);
+        console.log(message);
+        alert(message);
+
+        // Fetch updated list of surveys after deletion
+        fetchSurveys();
     };
 
     function renderSurveys() {
@@ -61,7 +58,6 @@ const SurveyList = ({ fetchSurveys, delSurveys, surveys }) => {
 
     return (
         <div>
-            {deleteMessage && <div>{deleteMessage}</div>}
             {renderSurveys()}
         </div>
     );

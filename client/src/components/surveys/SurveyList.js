@@ -6,15 +6,15 @@ const SurveyList = ({ fetchSurveys, delSurveys, surveys }) => {
 
     useEffect(() => {
         fetchSurveys();
-    }, [fetchSurveys]);
+    }, []);
 
     async function handleDelete(surveyId) {
-        let message = await delSurveys(surveyId);
-        console.log(message);
-        alert(message);
-
+        const message = await delSurveys(surveyId);
+        
         // Fetch updated list of surveys after deletion
         fetchSurveys();
+        
+        alert("Survey Deleted Successfully", message);
     };
 
     function renderSurveys() {
@@ -47,8 +47,8 @@ const SurveyList = ({ fetchSurveys, delSurveys, surveys }) => {
                         <a href='#'>No: {survey.no}</a>
 
                         {/* button to delete the survey */}
-                        <button onClick={() => handleDelete(survey._id)}>
-                            <i className="material-icons  red-text darken-2">delete</i>
+                        <button onClick={() => handleDelete(survey._id)} className='btn-floating btn-small waves-effect waves-light red darken-2 right'>
+                            <i className="material-icons">delete</i>
                         </button>
                     </div>
                 </div>

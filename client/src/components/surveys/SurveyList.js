@@ -1,16 +1,26 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { fetchSurveys } from '../../actions';
+import { fetchSurveys, delSurveys } from '../../actions';
 
-const SurveyList = ({ fetchSurveys, surveys }) => {
+const SurveyList = ({ fetchSurveys, delSurveys, surveys }) => {
+
     useEffect(() => {
         fetchSurveys();
-    }, [fetchSurveys]);
+    }, []);
+
+    async function handleDelete(surveyId) {
+        const message = await delSurveys(surveyId);
+        
+        // Fetch updated list of surveys after deletion
+        fetchSurveys();
+        
+        alert("Survey Deleted Successfully", message);
+    };
 
     function renderSurveys() {
         // Make a copy of surveys array and then reverse it
         const reversedSurveys = [...surveys].reverse();
-    
+        
         return reversedSurveys.map(survey => {
             return (
                 <div className="card blue-grey darken-1" key={survey._id} style={{borderRadius: '25px'}}>
@@ -35,12 +45,16 @@ const SurveyList = ({ fetchSurveys, surveys }) => {
                     <div className="card-action center surveyCardResponses" style={{fontSize:'medium'}}>
                         <a href='#'>Yes: {survey.yes}</a>
                         <a href='#'>No: {survey.no}</a>
+
+                        {/* button to delete the survey */}
+                        <button onClick={() => handleDelete(survey._id)} className='btn-floating btn-small waves-effect waves-light red darken-2 right'>
+                            <i className="material-icons">delete</i>
+                        </button>
                     </div>
                 </div>
             );
         });
     };
-    
 
     return (
         <div>
@@ -53,4 +67,4 @@ const mapStateToProps = ({ surveys }) => {
     return { surveys: surveys };
 };
 
-export default connect(mapStateToProps, { fetchSurveys })(SurveyList);
+export default connect(mapStateToProps, { fetchSurveys, delSurveys })(SurveyList);

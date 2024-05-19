@@ -37,12 +37,12 @@ class SurveyNew extends Component {
     render() {
         return (
             <div>
-                <div className="center">
+                <div className="center" style={{paddingTop:'25px'}}>
                     <span style={{ color: 'red' }}>
                         <i className="material-icons" style={{ paddingTop: '5px', verticalAlign: 'middle' }}>warning</i>
-                        <b>Warning: </b>
+                        <b>Caution: </b>
                     </span>
-                    <span className="customColor2">The profanity filter is always watching for threats and abusive/offensive language.</span>
+                    <span className="customColor2">Profanity filter active. Please use respectful language.</span>
                 </div>
 
                 <div>
